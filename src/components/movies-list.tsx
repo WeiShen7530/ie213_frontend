@@ -23,10 +23,6 @@ type MoviesResponse = {
 	entries_per_page: number;
 };
 
-type RatingsResponse = {
-	rating: string[];
-};
-
 type AppliedSearch =
 	| { mode: ""; title: ""; rating: "" }
 	| { mode: "findByTitle"; title: string; rating: "" }
@@ -62,9 +58,8 @@ const MoviesList = () => {
 	const retrieveRatings = async () => {
 		try {
 			const response = await MovieDataService.getRating();
-			const data = response.data as RatingsResponse;
 
-			setRatings(["All Ratings", ...data.rating]);
+			setRatings(["All Ratings", ...response.data]);
 		} catch (e) {
 			console.error(e);
 		}
@@ -107,7 +102,6 @@ const MoviesList = () => {
 
 	useEffect(() => {
 		(async () => {
-			await retrieveMovies(0);
 			await retrieveRatings();
 		})();
 	}, []);

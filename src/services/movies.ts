@@ -72,7 +72,7 @@ export const MovieDataService = {
 
     async getRating() {
         try {
-            return await axios.get(`${API_URL}/api/v1/movies/ratings`);
+            return await axios.get<string[]>(`${API_URL}/api/v1/movies/ratings`);
         } catch (error) {
             console.error('Error fetching ratings:', error);
             throw error;
